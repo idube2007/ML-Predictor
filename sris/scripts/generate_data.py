@@ -56,16 +56,16 @@ def generate_retail_data(num_records=5000):
         
     pd_sales = pd.DataFrame(sales)
     
-    # Create directory if not exists
-    os.makedirs('d:/MLAPP/sris/data', exist_ok=True)
+    # Create data directory if it doesn't exist
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(BASE_DIR, "data")
+    os.makedirs(data_dir, exist_ok=True)
     
-    # Save to CSV
-    pd_sales.to_csv('d:/MLAPP/sris/data/retail_data.csv', index=False)
-    pd_customers.to_csv('d:/MLAPP/sris/data/customers.csv', index=False)
-    pd_products.to_csv('d:/MLAPP/sris/data/products.csv', index=False)
+    pd_sales.to_csv(os.path.join(data_dir, 'retail_data.csv'), index=False)
+    pd_customers.to_csv(os.path.join(data_dir, 'customers.csv'), index=False)
+    pd_products.to_csv(os.path.join(data_dir, 'products.csv'), index=False)
     
-    print(f"Generated {num_records} sales records.")
-    print(f"Data saved to d:/MLAPP/sris/data/")
+    print(f"Data saved to {data_dir}")
 
 if __name__ == "__main__":
     generate_retail_data()
