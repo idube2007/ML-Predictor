@@ -10,15 +10,13 @@ echo.
 echo Waiting for server to initialize...
 timeout /t 5 /nobreak > nul
 
-echo.
-echo Opening Frontend Dashboard...
-start "" "d:\MLAPP\sris\frontend\login.html"
+echo Opening Unified App...
+start "" "http://127.0.0.1:8000"
 
 echo.
 echo ==========================================
 echo   System is now running!
-echo   Backend: http://localhost:8000
-echo   Frontend: login.html
+echo   Unified App: http://127.0.0.1:8000
 echo ==========================================
 echo.
 pause
