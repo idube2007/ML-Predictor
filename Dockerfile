@@ -22,5 +22,5 @@ RUN mkdir -p sris/models sris/data
 WORKDIR /app/sris/backend
 
 # Use a direct command to skip entrypoint script issues
-# We use python -m uvicorn for the most reliable module path resolution
-CMD ["sh", "-c", "python -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --log-level info"]
+# We use the debug runner to print explicit errors if startup fails
+CMD ["sh", "-c", "python debug_runner.py"]
