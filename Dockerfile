@@ -7,18 +7,16 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install
-COPY sris/backend/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the entire project first to maintain structure
+COPY . .
 
-# Copy the rest of the application
-COPY sris/ ./sris/
+# Install dependencies
+# Point to the requirements file inside the structure
+RUN pip install --no-cache-dir -r sris/backend/requirements.txt
 
-# Set working directory to backend
+# Set working directory to where main.py is
 WORKDIR /app/sris/backend
 
-# Expose port
-EXPOSE 8000
-
-# Start command
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Use shell form to allow variable expansion for $PORT
+# Render provides the PORT env var
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
