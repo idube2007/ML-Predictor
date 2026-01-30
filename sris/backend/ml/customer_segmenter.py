@@ -6,8 +6,9 @@ import os
 
 class CustomerSegmenter:
     def __init__(self):
-        self.model_path = 'd:/MLAPP/sris/models/segmentation_model.joblib'
-        self.scaler_path = 'd:/MLAPP/sris/models/segmentation_scaler.joblib'
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.model_path = os.path.join(BASE_DIR, "models", "segmentation_model.joblib")
+        self.scaler_path = os.path.join(BASE_DIR, "models", "segmentation_scaler.joblib")
 
     def train(self, data_path):
         df = pd.read_csv(data_path)
@@ -21,7 +22,7 @@ class CustomerSegmenter:
         kmeans = KMeans(n_clusters=5, random_state=42)
         kmeans.fit(X_scaled)
         
-        os.makedirs('d:/MLAPP/sris/models', exist_ok=True)
+        os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
         joblib.dump(kmeans, self.model_path)
         joblib.dump(scaler, self.scaler_path)
         print("Customer Segmentation model trained and saved.")

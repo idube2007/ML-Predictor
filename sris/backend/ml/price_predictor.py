@@ -9,8 +9,11 @@ class PricePredictor:
     def __init__(self):
         self.model = LinearRegression()
         self.le_category = LabelEncoder()
-        self.model_path = 'd:/MLAPP/sris/models/price_model.joblib'
-        self.le_path = 'd:/MLAPP/sris/models/le_category.joblib'
+        # Environment-agnostic pathing
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        MODELS_DIR = os.path.join(BASE_DIR, "models")
+        self.model_path = os.path.join(MODELS_DIR, 'price_model.joblib')
+        self.le_path = os.path.join(MODELS_DIR, 'le_category.joblib')
 
     def train(self, data_path):
         df = pd.read_csv(data_path)
@@ -23,7 +26,7 @@ class PricePredictor:
         self.model.fit(X, y)
         
         # Save models
-        os.makedirs('d:/MLAPP/sris/models', exist_ok=True)
+        os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
         joblib.dump(self.model, self.model_path)
         joblib.dump(self.le_category, self.le_path)
         print("Price Prediction model trained and saved.")

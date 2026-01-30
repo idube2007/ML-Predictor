@@ -9,9 +9,12 @@ import os
 
 router = APIRouter()
 
-DATA_PATH = 'd:/MLAPP/sris/data/retail_data.csv'
-CUST_PATH = 'd:/MLAPP/sris/data/customers.csv'
-PROD_PATH = 'd:/MLAPP/sris/data/products.csv'
+# Environment-agnostic data pathing
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DATA_PATH = os.path.join(DATA_DIR, 'retail_data.csv')
+CUST_PATH = os.path.join(DATA_DIR, 'customers.csv')
+PROD_PATH = os.path.join(DATA_DIR, 'products.csv')
 
 @router.get("/predict/price")
 async def predict_price(category: str, current_user: str = Depends(get_current_user)):

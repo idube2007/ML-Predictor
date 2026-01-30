@@ -5,7 +5,8 @@ import os
 
 class DemandForecaster:
     def __init__(self):
-        self.model_path = 'd:/MLAPP/sris/models/demand_model.joblib'
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.model_path = os.path.join(BASE_DIR, "models", "demand_model.joblib")
 
     def train(self, data_path):
         df = pd.read_csv(data_path)
@@ -18,7 +19,7 @@ class DemandForecaster:
         # For this demo, we'll store historical averages as a simple predictor.
         history = daily_demand.groupby('category')['quantity'].mean().to_dict()
         
-        os.makedirs('d:/MLAPP/sris/models', exist_ok=True)
+        os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
         joblib.dump(history, self.model_path)
         print("Demand Forecasting model (Historical Avg) trained and saved.")
 

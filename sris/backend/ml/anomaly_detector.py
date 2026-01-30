@@ -5,7 +5,8 @@ import os
 
 class AnomalyDetector:
     def __init__(self):
-        self.model_path = 'd:/MLAPP/sris/models/anomaly_model.joblib'
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.model_path = os.path.join(BASE_DIR, "models", "anomaly_model.joblib")
 
     def train(self, data_path):
         df = pd.read_csv(data_path)
@@ -17,7 +18,7 @@ class AnomalyDetector:
         clf = IsolationForest(contamination=0.01, random_state=42)
         clf.fit(X)
         
-        os.makedirs('d:/MLAPP/sris/models', exist_ok=True)
+        os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
         joblib.dump(clf, self.model_path)
         print("Anomaly Detection model trained and saved.")
 
