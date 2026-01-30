@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Intelligence | SRIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-slate-950 min-h-screen">
+    <nav class="glass border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="dashboard.html" class="text-2xl font-bold text-indigo-400">SRIS Intelligence</a>
+            <div class="flex items-center space-x-6">
+                <a href="dashboard.html" class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
+                <button onclick="logout()" class="text-slate-400 hover:text-white transition-colors">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-6 md:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Price Prediction Section -->
+            <div class="glass p-8 rounded-3xl">
+                <div class="flex items-center mb-6">
+                    <div class="p-3 bg-indigo-500/10 rounded-xl mr-4 text-indigo-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold">Dynamic Pricing</h2>
+                </div>
+                <div class="space-y-4">
+                    <label class="block text-sm text-slate-400">Select Category</label>
+                    <select id="priceCategory" class="w-full input-field">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Home">Home</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Beauty">Beauty</option>
+                    </select>
+                    <button onclick="predictPrice()" class="w-full btn-primary">Run Prediction</button>
+                    <div id="priceResult"
+                        class="hidden mt-6 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-center">
+                        <p class="text-slate-400 text-sm">Predicted Optimal Price</p>
+                        <p id="predictedPrice" class="text-3xl font-bold text-indigo-400 mt-1"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demand Forecasting Section -->
+            <div class="glass p-8 rounded-3xl">
+                <div class="flex items-center mb-6">
+                    <div class="p-3 bg-emerald-500/10 rounded-xl mr-4 text-emerald-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold">Demand Forecast</h2>
+                </div>
+                <div class="space-y-4">
+                    <label class="block text-sm text-slate-400">Select Category</label>
+                    <select id="demandCategory" class="w-full input-field">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothing">Clothing</option>
+                    </select>
+                    <button onclick="forecastDemand()"
+                        class="w-full btn-primary bg-emerald-600 hover:bg-emerald-700">Predict Volume</button>
+                    <div id="demandResult" class="hidden mt-6">
+                        <p class="text-slate-400 text-sm mb-3">7-Day Projected Units</p>
+                        <div id="demandBars" class="flex items-end space-x-2 h-24">
+                            <!-- Dynamic Bars -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Section -->
+            <div class="glass p-8 rounded-3xl md:col-span-2">
+                <h2 class="text-2xl font-bold mb-6">Client-Level Recommendations</h2>
+                <div class="flex space-x-4 mb-8">
+                    <input type="number" id="custId" class="flex-1 input-field"
+                        placeholder="Enter Customer ID (e.g. 1-500)">
+                    <button onclick="getRecs()" class="btn-primary">Get Suggestions</button>
+                </div>
+                <div id="recList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Recommendation Cards -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/ml.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | SRIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-slate-950 p-6">
+    <div class="glass p-8 rounded-2xl w-full max-w-md shadow-2xl">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-indigo-400 mb-2">Join SRIS</h1>
+            <p class="text-slate-400">Initialize your intelligence hub</p>
+        </div>
+
+        <form id="registerForm" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Username</label>
+                <input type="text" id="username" class="w-full input-field" placeholder="Choose a username" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+                <input type="email" id="email" class="w-full input-field" placeholder="name@company.com" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Password</label>
+                <input type="password" id="password" class="w-full input-field" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="w-full btn-primary py-3">
+                Create Account
+            </button>
+        </form>
+
+        <p class="text-center mt-8 text-slate-400 text-sm">
+            Already have an account? <a href="login.html"
+                class="text-indigo-400 hover:text-indigo-300 transition-colors">Sign In</a>
+        </p>
+
+        <div class="mt-10 pt-6 border-t border-slate-800 text-center">
+            <button onclick="testSystemConnection()"
+                class="text-[10px] text-slate-500 hover:text-indigo-400 uppercase tracking-widest transition-all">
+                Run Connectivity Diagnostic
+            </button>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        async function testSystemConnection() {
+            if (typeof checkServerConnection === 'undefined') {
+                alert("Auth logic still loading... please wait 1 second.");
+                return;
+            }
+            const isConnected = await checkServerConnection();
+            if (isConnected) {
+                alert("SUCCESS: Backend is responding at http://127.0.0.1:8000");
+            } else {
+                alert("FAILED: Backend unreachable. 1. Check if START_SRIS.bat is running. 2. Verify Port 8000 is open in your Windows Firewall.");
+            }
+        }
+    </script>
+</body>
+
+</html>

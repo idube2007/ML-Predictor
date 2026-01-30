@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SRIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-slate-950 min-h-screen">
+    <nav class="glass border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-400">SRIS Dashboard</h1>
+            <div class="flex items-center space-x-6">
+                <span id="userDisplay" class="text-slate-300"></span>
+                <button onclick="logout()" class="text-slate-400 hover:text-white transition-colors">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-6 md:p-8">
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-slate-400 text-sm mb-1">Total Sales Records</p>
+                <p id="salesCount" class="text-3xl font-bold text-white">0</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-slate-400 text-sm mb-1">Active Customers</p>
+                <p id="customerCount" class="text-3xl font-bold text-white">0</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-slate-400 text-sm mb-1">Product Categories</p>
+                <p id="productCount" class="text-3xl font-bold text-white">0</p>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <div class="glass p-6 rounded-2xl lg:col-span-2">
+                <h3 class="text-xl font-semibold mb-6">Revenue Trend</h3>
+                <canvas id="revenueChart" height="300"></canvas>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <h3 class="text-xl font-semibold mb-6">Demand Matrix</h3>
+                <canvas id="categoryChart" height="300"></canvas>
+            </div>
+        </div>
+
+        <!-- Action Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass p-8 rounded-2xl">
+                <h3 class="text-xl font-semibold mb-4">ML Intelligence Tools</h3>
+                <div class="space-y-4">
+                    <button onclick="trainModels()" class="w-full btn-primary py-3 flex items-center justify-center">
+                        <span id="trainBtnText">Retrain Intelligence Engine</span>
+                    </button>
+                    <a href="ml_features.html"
+                        class="block w-full border border-indigo-500/30 text-indigo-400 font-medium py-3 rounded-lg text-center hover:bg-indigo-500/10 transition-all">
+                        Deep Predictions & Recommendations
+                    </a>
+                </div>
+            </div>
+
+            <div class="glass p-8 rounded-2xl">
+                <h3 class="text-xl font-semibold mb-4">Ingest Retail Data</h3>
+                <form id="uploadForm" class="space-y-4">
+                    <div class="flex items-center justify-center w-full">
+                        <label
+                            class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-700 border-dashed rounded-lg cursor-pointer bg-slate-800/50 hover:bg-slate-800 transition-all">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <p class="mb-2 text-sm text-slate-400"><span class="font-semibold">Click to
+                                        upload</span> or drag and drop</p>
+                                <p class="text-xs text-slate-500">Retail Sales CSV (MAX. 10MB)</p>
+                            </div>
+                            <input id="csvFile" type="file" class="hidden" accept=".csv" />
+                        </label>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 rounded-lg transition-all">
+                        Process Data
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

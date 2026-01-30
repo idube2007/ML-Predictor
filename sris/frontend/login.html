@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Smart Retail Intelligence System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex items-center justify-center bg-slate-950 p-6">
+    <div class="glass p-8 rounded-2xl w-full max-w-md shadow-2xl animate-fade-in">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-indigo-400 mb-2">SRIS</h1>
+            <p class="text-slate-400">Smart Retail Intelligence System</p>
+        </div>
+        
+        <form id="loginForm" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Username</label>
+                <input type="text" id="username" class="w-full input-field" placeholder="Enter your username" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Password</label>
+                <input type="password" id="password" class="w-full input-field" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="w-full btn-primary py-3">
+                Sign In
+            </button>
+        </form>
+        
+        <p class="text-center mt-8 text-slate-400 text-sm">
+            Don't have an account? <a href="register.html" class="text-indigo-400 hover:text-indigo-300 transition-colors">Create one</a>
+        </p>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

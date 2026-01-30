@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SRIS Connection Diagnostic</title>
+</head>
+
+<body style="background: #0f172a; color: white; font-family: sans-serif; padding: 40px;">
+    <h1>SRIS Connection Diagnostic</h1>
+    <div id="status" style="padding: 20px; border-radius: 8px; margin-top: 20px;">Checking...</div>
+    <button onclick="check()" style="margin-top: 20px; padding: 10px 20px;">Retry Test</button>
+    <script>
+        async function check() {
+            const status = document.getElementById('status');
+            status.style.background = '#1e293b';
+            status.innerText = "Attempting to reach backend at http://127.0.0.1:8000...";
+            try {
+                const res = await fetch('http://127.0.0.1:8000/', { mode: 'cors' });
+                if (res.ok) {
+                    status.style.background = '#065f46';
+                    status.innerText = "SUCCESS! Backend is reachable and responding.";
+                } else {
+                    status.style.background = '#991b1b';
+                    status.innerText = "ERROR: Connected but got status " + res.status;
+                }
+            } catch (e) {
+                status.style.background = '#991b1b';
+                status.innerText = "FAILED: Could not reach backend. Possible causes:\n1. Server is not running.\n2. Firewall is blocking Port 8000.\n3. Adblocker or VPN is interfering.";
+            }
+        }
+        check();
+    </script>
+</body>
+
+</html>
