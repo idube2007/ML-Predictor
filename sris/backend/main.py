@@ -38,20 +38,20 @@ app.include_router(data.router, prefix="/api/data", tags=["Data Management"])
 app.include_router(ml.router, prefix="/api/ml", tags=["Machine Learning"])
 
 # Serve Frontend
-# In Docker, the current dir is /app/sris/backend
-# Frontend is at /app/sris/frontend
 frontend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../frontend"))
 
-# Mount static files (optional, if you have a separate /static folder)
+# Mount CSS and JS folders for the browser to find them
 if os.path.exists(os.path.join(frontend_path, "css")):
     app.mount("/css", StaticFiles(directory=os.path.join(frontend_path, "css")), name="css")
 if os.path.exists(os.path.join(frontend_path, "js")):
     app.mount("/js", StaticFiles(directory=os.path.join(frontend_path, "js")), name="js")
 
-@app.get("/")
-async def serve_index():
-    return FileResponse(os.path.join(frontend_path, "login.html"))
+# Health Check
+@app.get("/health")
+def health_check():
+    return {"status": "online", "database": "connected"}
 
+# Serve HTML Pages (Catch-all for frontend)
 @app.get("/{page_name}.html")
 async def serve_html_pages(page_name: str):
     file_path = os.path.join(frontend_path, f"{page_name}.html")
@@ -59,6 +59,7 @@ async def serve_html_pages(page_name: str):
         return FileResponse(file_path)
     return FileResponse(os.path.join(frontend_path, "login.html"))
 
-@app.get("/health")
-def health_check():
-    return {"status": "online", "database": "connected"}
+# Root Redirect - MUST BE LAST
+@app.get("/")
+async def serve_index():
+    return FileResponse(os.path.join(frontend_path, "login.html"))
